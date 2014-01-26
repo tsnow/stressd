@@ -6,6 +6,7 @@ import (
 	"os"
 	"stressd/config"
 	"stressd/server"
+	"stressd/ui"
 )
 
 var conf = config.New()
@@ -31,5 +32,6 @@ func parseArgs() {
 func main() {
 	parseArgs()
 	log.Println("stressd [ env:", conf.Environment, "- pid:", os.Getpid(), "- ver:", config.VERSION, "]")
-	server.Start()
+	go server.Start()
+	ui.Start()
 }
