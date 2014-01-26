@@ -16,14 +16,14 @@ type WorkerPool struct {
 // NewWorkerPool accepts the concurrency settings, as well as
 // information about the HTTP request to be made. It returns a
 // configured WorkerPool struct.
-func NewWorkerPool(numberOfRequests, numberOfWorkers int, url, method, headers, payload string) *WorkerPool {
+func NewWorkerPool(numberOfRequests, numberOfWorkers int, url, method, headers, body string) *WorkerPool {
 	pool := &WorkerPool{
 		NumberOfRequests: numberOfRequests,
 		Workers:          make([]*Worker, numberOfWorkers),
 	}
 	for i := 0; i < numberOfWorkers; i++ {
 		pool.wg.Add(1)
-		pool.Workers[i] = NewWorker(numberOfRequests, url, method, headers, payload, &pool.wg)
+		pool.Workers[i] = NewWorker(numberOfRequests, url, method, headers, body, &pool.wg)
 	}
 	return pool
 }
