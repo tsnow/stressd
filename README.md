@@ -5,7 +5,7 @@
 
 ### Getting Started
 
-First, you'll need Go. Once you have that hotness, clone this and run `go get` from inside the project folder (if you haven't set up a Go workspace yet, so read the docs. It's important.)
+First, you'll need Go. Once you have that hotness, clone this and run `go get` from inside the project folder (if you haven't set up a Go workspace yet, go read the docs. It's important.)
 
 If `go get` returns nothing, you're in good shape. If you don't have Mercurial installed and in your `PATH`, it'll complain about not being able to find `hg`. Install however you see fit.
 
