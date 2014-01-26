@@ -1,4 +1,4 @@
-package ui
+package server
 
 import (
 	"html/template"
@@ -6,6 +6,6 @@ import (
 )
 
 func FileNotFound(w http.ResponseWriter, req *http.Request) {
-	t := template.Must(template.New("404").ParseFiles("ui/html/layout.html", "ui/html/404.html"))
+	t := template.Must(template.New("404").ParseFiles("server/html/layout.html", "server/html/404.html"))
 	t.ExecuteTemplate(w, "layout", "Whoops!")
 }

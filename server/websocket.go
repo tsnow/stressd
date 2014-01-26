@@ -13,7 +13,7 @@ var EventChannel = make(chan interface{}, MAX_EVENTS_QUEUED)
 var deactivateChannel = make(chan *ws.Conn)
 var connections = make(map[*ws.Conn]string)
 
-func Start() {
+func StartWebsocketServer() {
 	go broadcast()
 
 	http.Handle("/events", ws.Handler(websocketHandler))

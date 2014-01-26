@@ -1,4 +1,4 @@
-package ui
+package server
 
 import (
 	"html/template"
@@ -6,6 +6,6 @@ import (
 )
 
 func Home(w http.ResponseWriter, req *http.Request) {
-	t := template.Must(template.New("home").ParseFiles("ui/html/layout.html", "ui/html/home.html"))
+	t := template.Must(template.New("home").ParseFiles("server/html/layout.html", "server/html/home.html"))
 	t.ExecuteTemplate(w, "layout", "Home")
 }

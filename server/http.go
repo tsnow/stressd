@@ -1,4 +1,4 @@
-package ui
+package server
 
 import (
 	"github.com/gorilla/mux"
@@ -8,7 +8,7 @@ import (
 	"stressd/config"
 )
 
-func Start() {
+func StartHTTPServer() {
 	log.Print("starting HTTP server at ", config.Config.Address, ":", config.Config.Port)
 
 	// Route normal requests to the appropriate handlers
@@ -19,9 +19,9 @@ func Start() {
 	m.NotFoundHandler = http.HandlerFunc(FileNotFound)
 
 	// Serve various assets directly from the /api/web/* folders
-	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("ui/css"))))
-	http.Handle("/images/", http.StripPrefix("/images/", http.FileServer(http.Dir("ui/images"))))
-	http.Handle("/scripts/", http.StripPrefix("/scripts/", http.FileServer(http.Dir("ui/scripts"))))
+	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("server/css"))))
+	http.Handle("/images/", http.StripPrefix("/images/", http.FileServer(http.Dir("server/images"))))
+	http.Handle("/scripts/", http.StripPrefix("/scripts/", http.FileServer(http.Dir("server/scripts"))))
 	http.Handle("/", m)
 
 	if err := http.ListenAndServe(config.Config.Address+":"+config.Config.Port, nil); err != nil {
