@@ -4,6 +4,7 @@ import (
 	ws "code.google.com/p/go.net/websocket"
 	"log"
 	"net/http"
+	"stressd/config"
 )
 
 const MAX_EVENTS_QUEUED = 32
@@ -16,7 +17,8 @@ func Start() {
 	go broadcast()
 
 	http.Handle("/events", ws.Handler(websocketHandler))
-	if err := http.ListenAndServe("0.0.0.0:8080", nil); err != nil {
+	log.Print("starting websocket server at ", config.Config.WebsocketAddress, ":", config.Config.WebsocketPort)
+	if err := http.ListenAndServe(config.Config.WebsocketAddress+":"+config.Config.WebsocketPort, nil); err != nil {
 		log.Fatal("failed to start websocket: ", err)
 	}
 }
