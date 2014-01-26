@@ -20,3 +20,7 @@ $ go run stressd.go
 ```
 
 Checkout http://0.0.0.0:9898 for a bare-bones HTML form. All the goody bits still need to be written and wired, but there's a skeleton now.
+
+### TODOs
+
+- Tests. I'm kind of cowboy-ing it at the moment. We'll wind up changing stuff anyway when we start playing with the hardware.
