@@ -6,7 +6,38 @@
     <div class="col-md-10 pretty-type">
       <h1><strong>stressd</strong></h1>
       <hr/>
-      <p>Stress test your applications. More copy text here!!</p>
+      <p>Fill out the form below to STRESS ALL THE THINGS.</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-10 col-md-offset-2">
+      <form role="form">
+        <div class="form-group">
+          <label for="url">URL</label>
+          <input class="form-control" id="url" placeholder="Enter the URL you'd like to stress out like whoa">
+        </div>
+        <div class="form-group">
+          <label for="num_requests">Number of Times to Make This Request</label>
+          <input class="form-control" id="num_requests" placeholder="We'll generate this many requests for each worker">
+        </div>
+        <div class="form-group">
+          <label for="num_workers">Number of Concurrent Users to Simulate</label>
+          <input class="form-control" id="num_workers" placeholder="We'll generate this many workers to nag your URL">
+        </div>
+        <div class="form-group">
+          <label for="http_method">HTTP Method</label>
+          <input class="form-control" id="http_method" placeholder="Set your HTTP method (GET, PUT, OPTIONS, etc.) here">
+        </div>
+        <div class="form-group">
+          <label for="http_headers">HTTP Headers</label>
+          <textarea class="form-control" id="http_headers" placeholder="Add any HTTP headers you'd like to set here, one per line"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="request_payload">Request Payload</label>
+          <textarea class="form-control" id="request_payload" placeholder="If you want to submit a payload, enter it here"></textarea>
+        </div>
+        <button type="submit" class="btn btn-default">Unleash the Hounds</button>
+      </form>
     </div>
   </div>
 {{end}}
