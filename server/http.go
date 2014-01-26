@@ -18,7 +18,7 @@ func StartHTTPServer() {
 	// Route error requests accordingly
 	m.NotFoundHandler = http.HandlerFunc(FileNotFound)
 
-	// Serve various assets directly from the /api/web/* folders
+	// Serve various assets directly from the /server/* folders
 	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("server/css"))))
 	http.Handle("/images/", http.StripPrefix("/images/", http.FileServer(http.Dir("server/images"))))
 	http.Handle("/scripts/", http.StripPrefix("/scripts/", http.FileServer(http.Dir("server/scripts"))))
