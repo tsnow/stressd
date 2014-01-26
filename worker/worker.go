@@ -8,12 +8,13 @@ import (
 // be under stress test, and holds a Response instance for
 // reporting to the UI.
 type Worker struct {
-	Url      string
-	Method   string
-	Headers  string
-	Body     string
-	Response *Response
-	wg       *sync.WaitGroup
+	Url              string
+	Method           string
+	Headers          string
+	Body             string
+	Responses        []*Response
+	NumberOfRequests int
+	wg               *sync.WaitGroup
 }
 
 // Response provides the interface for the result of the HTTP
@@ -26,13 +27,14 @@ type Response struct {
 
 // NewWorker accepts information about the HTTP endpoint to test
 // and returns a configured Worker.
-func NewWorker(url, method, headers, body string, wg *sync.WaitGroup) *Worker {
+func NewWorker(numberOfRequests int, url, method, headers, body string, wg *sync.WaitGroup) *Worker {
 	return &Worker{
-		Url:     url,
-		Method:  method,
-		Headers: headers,
-		Body:    body,
-		wg:      wg,
+		Url:              url,
+		Method:           method,
+		Headers:          headers,
+		Body:             body,
+		NumberOfRequests: numberOfRequests,
+		wg:               wg,
 	}
 }
 

@@ -12,7 +12,7 @@ func TestWorker(t *testing.T) {
 		var wg sync.WaitGroup
 
 		Convey("Given a worker", func() {
-			worker = NewWorker("http://www.example.com", "GET", "", "", &wg)
+			worker = NewWorker(5, "http://www.example.com", "GET", "", "", &wg)
 
 			Convey("The worker should be properly configured", func() {
 				So(worker.Url, ShouldEqual, "http://www.example.com")

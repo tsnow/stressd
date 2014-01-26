@@ -23,7 +23,7 @@ func NewWorkerPool(numberOfRequests, numberOfWorkers int, url, method, headers, 
 	}
 	for i := 0; i < numberOfWorkers; i++ {
 		pool.wg.Add(1)
-		pool.Workers[i] = NewWorker(url, method, headers, payload, &pool.wg)
+		pool.Workers[i] = NewWorker(numberOfRequests, url, method, headers, payload, &pool.wg)
 	}
 	return pool
 }
