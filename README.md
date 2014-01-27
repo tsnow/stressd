@@ -28,6 +28,7 @@ I added [GoConvey](http://smartystreets.github.io/goconvey/) to the project. It'
 You can reach the web interface by running `$GOPATH/bin/goconvey` and then hitting http://localhost:8080/.
 
 ```shell
+$ go get github.com/jacobsa/oglematchers
 $ go get github.com/smartystreets/goconvey
 $ $GOPATH/bin/goconvey
 2014/01/26 17:56:20 goconvey.go:39: Initial configuration: [host: 127.0.0.1] [port: 8080] [poll 250ms]
