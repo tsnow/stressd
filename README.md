@@ -17,6 +17,13 @@ Under the `example/` directory, you'll find a server that can be used to test ag
 > example/serve.sh # to run the server
 ```
 
+### SSHing to your Pi
+
+``` bash
+> ssh pi@coder.local
+```
+Supply the password you used when you set up the Coder application.
+
 ### TODOs
 
 1. Wire the form up to client-side AJAX 
