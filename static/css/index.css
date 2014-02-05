@@ -2,6 +2,10 @@ body {
     padding-top: 60px;
 }
 
+#coder_basicnav {
+    z-index: 1031
+}
+
 #logo {
 	width: 170px;
 }
