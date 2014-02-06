@@ -33,21 +33,21 @@ ClientStressor.prototype = {
 
 var ClientStressorWorker = function(plan){
     this.plan = plan;
+    this.requests = [];
 };
 
 ClientStressorWorker.prototype = {
     start: function() {
-        this.num_remaining_requests = this.plan.num_requests;
-        this.makeRequest();
+        this.makeNextRequest();
         // TODO: Impose timeout and start a new request
     },
     
-    makeRequest: function() {
-        this.num_remaining_requests -= 1;
-        this.request = new Request(this.plan.url, this.plan.http_method,
+    makeNextRequest: function() {
+        if(this.requests.length >= this.plan.num_requests) return;
+        var request = new Request(this.plan.url, this.plan.http_method,
             this.plan.http_headers, this.plan.request_body);
-        this.request.ajax();
-        // TODO: Notice when a request finishes
+        this.requests.push(request);
+        request.ajax().always(this.makeNextRequest.bind(this));
     }
 };
 
@@ -56,13 +56,13 @@ var Request = function(url, http_method, http_headers, request_body){
     this.http_method = http_method;
     this.http_headers = http_headers;
     this.request_body = request_body;
-    this.startTime = new Date();
 };
 
 Request.prototype = {
     ajax: function(){
         console.log("Request is for reals being submitted...");
-        $.ajax(this.url, {
+        this.startTime = new Date();
+        return $.ajax(this.url, {
             context: this,
             success: function(){ this.success() },
             type: this.http_method,
