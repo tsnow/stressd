@@ -41,27 +41,27 @@
       <form role="form" id="stress-plan">
         <div class="form-group">
           <label for="url">URL</label>
-          <input class="form-control" id="url" placeholder="Enter the URL you'd like to stress out like whoa">
+          <input class="form-control" id="url" name="url" placeholder="Enter the URL you'd like to stress out like whoa">
         </div>
         <div class="form-group">
           <label for="num_requests">Number of Times to Make This Request</label>
-          <input class="form-control" id="num_requests" placeholder="We'll generate this many requests for each worker">
+          <input class="form-control" id="num_requests" name="num_requests" placeholder="We'll generate this many requests for each worker">
         </div>
         <div class="form-group">
           <label for="num_workers">Number of Concurrent Users to Simulate</label>
-          <input class="form-control" id="num_workers" placeholder="We'll generate this many workers to nag your URL">
+          <input class="form-control" id="num_workers" name="num_workers" placeholder="We'll generate this many workers to nag your URL">
         </div>
         <div class="form-group">
           <label for="http_method">HTTP Method</label>
-          <input class="form-control" id="http_method" placeholder="Set your HTTP method (GET, PUT, OPTIONS, etc.) here">
+          <input class="form-control" id="http_method" name="http_method" placeholder="Set your HTTP method (GET, PUT, OPTIONS, etc.) here">
         </div>
         <div class="form-group">
           <label for="http_headers">HTTP Headers</label>
-          <textarea class="form-control" id="http_headers" placeholder="Add any HTTP headers you'd like to set here, one per line"></textarea>
+          <textarea class="form-control" id="http_headers" name="http_headers" placeholder="Add any HTTP headers you'd like to set here, one per line"></textarea>
         </div>
         <div class="form-group">
           <label for="request_body">Request Body</label>
-          <textarea class="form-control" id="request_body" placeholder="If you want to submit a payload, enter it here"></textarea>
+          <textarea class="form-control" id="request_body" name="request_body" placeholder="If you want to submit a payload, enter it here"></textarea>
         </div>
         <button type="submit" class="btn btn-default">Unleash the Hounds</button>
       </form>
