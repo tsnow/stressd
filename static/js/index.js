@@ -19,34 +19,14 @@ StressPlan.prototype = {
         }
 };
 
-var Request = function(url, http_method, http_headers, request_body){
     this.url = url;
     this.http_method = http_method;
     this.http_headers = http_headers;
     this.request_body = request_body;
     this.completed = false;
-};
-
-Request.prototype = {
-    ajax: function(){
-        console.log("Request is for reals being submitted...");
-        this.startTime = new Date();
-        return $.ajax(this.url, {
-            context: this,
-            success: this.done.bind(this, true),
-            error: this.done.bind(this, false),
-            type: this.http_method,
-            url: this.url
-        });
-    },
-    
-    done: function(succeeded){
         this.completed = true;
         this.succeeded = succeeded;
         this.endTime = new Date();
-    }
-};
-
 $(document).ready( function() {
     Coder.socketConnection.init(function(){
         

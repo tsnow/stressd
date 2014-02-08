@@ -1,3 +1,6 @@
+require('url');
+require('http');
+
 exports.settings={};
 //These are dynamically updated by the runtime
 //settings.appname - the app id (folder) where your app is installed
@@ -72,6 +75,52 @@ ClientStressorWorker.prototype = {
             });
         this.requests.push(request);
         request.execute();
+    }
+};
+
+var Request = function(url, http_method, http_headers, request_body, completed_callback){
+    this.completed_callback = completed_callback;
+    var l = http_headers.length;
+    for(var i = 0; i++; i < l){
+        var splitter = http_headers[i].indexOf('=');
+        var name = "";
+        var value = "";
+        if(splitter === -1){
+            name = http_headers[i];
+            value = "";
+        } else {
+            name = http_headers[i].slice(0,splitter);
+            value = http_headers[i].slice(splitter, http_headers[i].length - splitter);
+        }
+        this.http_headers[name] = value;
+    }
+};
+
+Request.prototype = {
+    execute: function(){
+        console.log("Request is for reals being submitted...");
+        this.startTime = new Date();
+        var uri = url.parse(this.url);
+        var req = http.request({ 
+            hostname: uri.hostname(),
+            path: uri.path(),
+            port: uri.port(),
+            method: this.http_method,
+            auth: uri.auth(),
+            headers: this.http_headers
+        }, function(res){
+                this.done.bind(this,true);
+            });
+        req.on('error', function(e){
+            this.done.bind(this, false);
+        });
+        req.end(this.request_body);
+        this.req = req;
+        return this;
+    },
+    
+    done: function(succeeded){
+        this.completed_callback(this);
     }
 };
 exports.execute_plan = function( socket, data ){
