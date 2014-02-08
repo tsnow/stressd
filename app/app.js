@@ -127,9 +127,11 @@ Request.prototype = {
             auth: uri.auth,
             headers: this.http_headers
         }, function(res){
+                console.log("Request succeeded!");
                 that.done(true);
             });
         req.on('error', function(e){
+            console.log("Request failed!");
             that.done(false);
         });
         req.end(this.request_body);
