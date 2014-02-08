@@ -118,13 +118,13 @@ Request.prototype = {
         var that = this;
         console.log("Request is for reals being submitted...");
         this.startTime = new Date();
-            hostname: uri.hostname(),
-            path: uri.path(),
-            port: uri.port(),
         var uri = require('url').parse(this.url);
         var req = require('http').request({ 
+            hostname: uri.hostname,
+            path: uri.path,
+            port: uri.port,
             method: this.http_method,
-            auth: uri.auth(),
+            auth: uri.auth,
             headers: this.http_headers
         }, function(res){
                 that.done(true);
