@@ -22,6 +22,15 @@ exports.socketio_routes = [
     { key: 'plan', handler: 'execute_plan'}
 ];
 
+var StressPlan = function(data){
+    this.requests = [];
+    this.num_requests = data.num_requests
+    this.num_workers = data.num_workers 
+    this.http_method = data.http_method 
+    this.http_headers = data.http_headers
+    this.url = data.url
+    this.request_body = data.request_body
+};
 
 
 var ClientStressor = function(plan, statusCallback){
@@ -130,7 +139,13 @@ Request.prototype = {
         this.completed_callback(this);
     }
 };
+
 exports.execute_plan = function( socket, data ){
+    var onStatusChange = function(stressor) {
+    };
+            
+    var stressor = new ClientStressor(new StressPlan(data), onStatusChange);
+    stressor.start();
 };
 
 exports.index_handler = function( req, res ) {

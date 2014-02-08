@@ -1,7 +1,6 @@
 
 var StressPlan = function(form){
     this.form = form;
-    this.requests = [];
 };
 
 StressPlan.prototype = {
@@ -32,8 +31,6 @@ $(document).ready( function() {
             }
             var stressPlan = new StressPlan($(this));
             stressPlan.parseForm();
-            var stressor = new ClientStressor(stressPlan, onStatusChange);
-            stressor.start();
             Coder.socketConnection.sendData( 'plan', {
                 num_requests: stressPlan.num_requests, 
                 num_workers: stressPlan.num_workers,
