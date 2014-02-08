@@ -11,10 +11,6 @@ StressPlan.prototype = {
             this.http_headers = this.form.find('textarea[name="http_headers"]').val().split("\n");
             this.url = this.form.find('input[name="url"]').val();
             this.request_body = this.form.find('textarea[name="request_body"]').val();
-        },
-        
-        numTotalRequests: function() {
-            return this.num_workers * this.num_requests;
         }
 };
 

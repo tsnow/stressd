@@ -32,6 +32,12 @@ var StressPlan = function(data){
     this.request_body = data.request_body
 };
 
+StressPlan.prototype = {
+        numTotalRequests: function() {
+            return this.num_workers * this.num_requests;
+        }
+};
+
 
 var ClientStressor = function(plan, statusCallback){
     this.plan = plan;
