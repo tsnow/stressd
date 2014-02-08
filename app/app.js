@@ -79,11 +79,12 @@ ClientStressorWorker.prototype = {
     },
     
     makeNextRequest: function() {
+        var that = this;
         if(this.requests.length >= this.plan.num_requests) return;
         var request = new Request(this.plan.url, this.plan.http_method,
             this.plan.http_headers, this.plan.request_body, function(r){ 
-                this.parent.statusChanged.bind(this.parent)(); 
-                this.makeNextRequest.bind(this)();
+                that.parent.statusChanged(); 
+                that.makeNextRequest();
             });
         this.requests.push(request);
         request.execute();
@@ -114,6 +115,7 @@ var Request = function(url, http_method, http_headers, request_body, completed_c
 
 Request.prototype = {
     execute: function(){
+        var that = this;
         console.log("Request is for reals being submitted...");
         this.startTime = new Date();
             hostname: uri.hostname(),
@@ -125,10 +127,10 @@ Request.prototype = {
             auth: uri.auth(),
             headers: this.http_headers
         }, function(res){
-                this.done.bind(this,true);
+                that.done(true);
             });
         req.on('error', function(e){
-            this.done.bind(this, false);
+            that.done(false);
         });
         req.end(this.request_body);
         this.req = req;
