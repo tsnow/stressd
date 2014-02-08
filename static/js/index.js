@@ -20,15 +20,13 @@ StressPlan.prototype = {
 
 $(document).ready( function() {
     Coder.socketConnection.init(function(){
+        Coder.socketConnection.addListener('request_complete', function(summary){
+            var status = 'Completed ' + summary.numCompleted + ' of ' + summary.numReqs + ' requests';
+            $('#status').html(status);
+        });
         
         $('#stress-plan').submit(function(event) {
             event.preventDefault();
-            var onStatusChange = function(stressor) {
-                var numReqs = stressor.plan.numTotalRequests();
-                var numCompleted = stressor.numCompletedRequests();
-                var status = 'Completed ' + numCompleted + ' of ' + numReqs + ' requests';
-                $('#status').html(status);
-            }
             var stressPlan = new StressPlan($(this));
             stressPlan.parseForm();
             Coder.socketConnection.sendData( 'plan', {

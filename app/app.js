@@ -142,6 +142,12 @@ Request.prototype = {
 
 exports.execute_plan = function( socket, data ){
     var onStatusChange = function(stressor) {
+        var numReqs = stressor.plan.numTotalRequests();
+        var numCompleted = stressor.numCompletedRequests();
+        socket.emit('appdata', {
+                    key: "request_complete", 
+                    data: {numReqs: numReqs, numCompleted: numCompleted}
+        });
     };
             
     var stressor = new ClientStressor(new StressPlan(data), onStatusChange);
