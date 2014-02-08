@@ -80,6 +80,8 @@ ClientStressorWorker.prototype = {
 
 var Request = function(url, http_method, http_headers, request_body, completed_callback){
     this.completed_callback = completed_callback;
+    this.url = url;
+    this.http_method = http_method;
     var l = http_headers.length;
     for(var i = 0; i++; i < l){
         var splitter = http_headers[i].indexOf('=');
@@ -94,6 +96,8 @@ var Request = function(url, http_method, http_headers, request_body, completed_c
         }
         this.http_headers[name] = value;
     }
+    this.request_body = request_body;
+    this.completed = false;
 };
 
 Request.prototype = {
@@ -120,6 +124,9 @@ Request.prototype = {
     },
     
     done: function(succeeded){
+        this.completed = true;
+        this.succeeded = succeeded;
+        this.endTime = new Date();
         this.completed_callback(this);
     }
 };

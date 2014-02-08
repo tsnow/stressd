@@ -19,14 +19,6 @@ StressPlan.prototype = {
         }
 };
 
-    this.url = url;
-    this.http_method = http_method;
-    this.http_headers = http_headers;
-    this.request_body = request_body;
-    this.completed = false;
-        this.completed = true;
-        this.succeeded = succeeded;
-        this.endTime = new Date();
 $(document).ready( function() {
     Coder.socketConnection.init(function(){
         
