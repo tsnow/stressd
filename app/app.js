@@ -1,6 +1,3 @@
-require('url');
-require('http');
-
 exports.settings={};
 //These are dynamically updated by the runtime
 //settings.appname - the app id (folder) where your app is installed
@@ -119,11 +116,11 @@ Request.prototype = {
     execute: function(){
         console.log("Request is for reals being submitted...");
         this.startTime = new Date();
-        var uri = url.parse(this.url);
-        var req = http.request({ 
             hostname: uri.hostname(),
             path: uri.path(),
             port: uri.port(),
+        var uri = require('url').parse(this.url);
+        var req = require('http').request({ 
             method: this.http_method,
             auth: uri.auth(),
             headers: this.http_headers
