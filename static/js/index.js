@@ -19,59 +19,6 @@ StressPlan.prototype = {
         }
 };
 
-var ClientStressor = function(plan, statusCallback){
-    this.plan = plan;
-    this.workers = [];
-    this.statusCallback = statusCallback;
-    for(var i = 0; i != this.plan.num_workers; i++) {
-        this.workers[i] = new ClientStressorWorker(this);
-    }
-};
-
-ClientStressor.prototype = {
-    start: function(){
-        this.workers.forEach(function(worker) { worker.start(); });
-    },
-    
-    numCompletedRequests: function(){
-        return this.workers.reduce(function(sum, worker) {
-            return sum + worker.numCompletedRequests();
-        }, 0);
-    },
-    
-    statusChanged: function(){
-        // TODO: This is sort of a bogus event scheme, please feel free to rewire it
-        this.statusCallback(this);
-    }
-};
-
-var ClientStressorWorker = function(parent){
-    this.parent = parent;
-    this.plan = parent.plan;
-    this.requests = [];
-};
-
-ClientStressorWorker.prototype = {
-    start: function() {
-        this.makeNextRequest();
-        // TODO: Impose timeout and start a new request
-    },
-    
-    numCompletedRequests: function() {
-        return this.requests.filter(function(req) { return req.completed; }).length;
-    },
-    
-    makeNextRequest: function() {
-        if(this.requests.length >= this.plan.num_requests) return;
-        var request = new Request(this.plan.url, this.plan.http_method,
-            this.plan.http_headers, this.plan.request_body);
-        this.requests.push(request);
-        request.ajax()
-            .always(this.parent.statusChanged.bind(this.parent))
-            .always(this.makeNextRequest.bind(this));
-    }
-};
-
 var Request = function(url, http_method, http_headers, request_body){
     this.url = url;
     this.http_method = http_method;
