@@ -101,7 +101,9 @@ Request.prototype = {
 };
 
 $(document).ready( function() {
-    $('#stress-plan').submit(function(event) {
+    Coder.socketConnection.init(function(){
+        
+        $('#stress-plan').submit(function(event) {
             event.preventDefault();
             var onStatusChange = function(stressor) {
                 var numReqs = stressor.plan.numTotalRequests();
@@ -113,5 +115,14 @@ $(document).ready( function() {
             stressPlan.parseForm();
             var stressor = new ClientStressor(stressPlan, onStatusChange);
             stressor.start();
+            Coder.socketConnection.sendData( 'plan', {
+                num_requests: stressPlan.num_requests, 
+                num_workers: stressPlan.num_workers,
+                http_method: stressPlan.http_method,
+                http_headers: stressPlan.http_headers,
+                url: stressPlan.url,
+                request_body: stressPlan.request_body
+            });
+        });
     });
 });

@@ -15,6 +15,12 @@ exports.get_routes = [
 exports.post_routes = [
 ];
 
+exports.socketio_routes = [
+    { key: 'plan', handler: 'execute_plan'}
+];
+
+exports.execute_plan = function( socket, data ){
+};
 
 exports.index_handler = function( req, res ) {
     var tmplvars = {};
