@@ -5,7 +5,12 @@
 
 ### Getting Started
 
-First, you'll need Coder on your Raspberry Pi. http://googlecreativelab.github.io/coder/ Once you have that hotness running and available from your host computer, make a new app called 'stressd' and copy in the content of each of the files in this repo, uploading the images.
+First, you'll need Coder on your Raspberry Pi. http://googlecreativelab.github.io/coder/ 
+
+Once you have that hotness running and available from your host computer:
+
+1. run ./zip_for_coder.sh
+2. import the resulting stressd.zip into Coder by clicking on the Green [+] at https://coder.local/app/coder/ and clicking the file upload icon
 
 Checkout http://coder.local/app/stressd for a bare-bones HTML form.
 
@@ -26,4 +31,4 @@ Supply the password you used when you set up the Coder application.
 
 ### TODOs
 
-1. Wire the form up to client-side AJAX 
+See https://github.com/anachronistic/stressd/issues.
