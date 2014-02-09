@@ -3,6 +3,10 @@
 
 ![http://71.19.156.55/images/stressd.png](http://71.19.156.55/images/stressd.png)
 
+## Inspired by
+
+http://www.mnot.net/blog/2011/05/18/http_benchmark_rules
+
 ### Getting Started
 
 First, you'll need Coder on your Raspberry Pi. http://googlecreativelab.github.io/coder/ 
