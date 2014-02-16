@@ -7,6 +7,8 @@
 
 http://www.mnot.net/blog/2011/05/18/http_benchmark_rules
 
+## Coder for Raspberry Pi
+
 ### Getting Started
 
 First, you'll need Coder on your Raspberry Pi. http://googlecreativelab.github.io/coder/ 
@@ -32,6 +34,26 @@ Under the `example/` directory, you'll find a server that can be used to test ag
 > ssh pi@coder.local
 ```
 Supply the password you used when you set up the Coder application.
+
+## Go stressd service
+
+### Installing on Raspberry Pi
+
+There is a script included to install golang on the Pi. Run it when you're able to `ssh pi@coder.local`.
+
+``` bash
+./copy_to_coder.sh
+```
+
+You may need extra disk space on your Pi to hold the go libraries. There's extra space in the Coder image. There are two options here:
+
+- Use `sudo raspi-config` and `expand_rootfs` as described here: https://github.com/googlecreativelab/coder/issues/54
+- Use the included `./home_partition.sh`:
+
+``` bash
+scp home_partition.sh pi@coder.local:~/
+ssh pi@coder.local '~/home_partition.sh'
+```
 
 ### TODOs
 
