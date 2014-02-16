@@ -26,6 +26,7 @@ type StressTestPlan struct {
 	Body             string
 	NumberOfRequests int
 	NumberOfWorkers  int
+	Results chan StressTestResponse
 }
 
 var plans chan StressTestPlan
@@ -40,6 +41,7 @@ func Listen(){
 			case plan :=<- plans:
 				pool := NewWorkerPool(plan.NumberOfRequests, plan.NumberOfWorkers, plan.Url, plan.Method, plan.Headers, plan.Body)
 				pool.Stress()
+				pool.Responses(plan.Results)
 			}
 		}
 	}()
@@ -73,4 +75,17 @@ func (pool *WorkerPool) Stress() {
 		go pool.Workers[i].Execute()
 	}
 	pool.wg.Wait()
+}
+
+func (pool *WorkerPool) Responses(output chan StressTestResponse){
+	for i := range pool.Workers {
+		output <- StressTestResponse{
+			NumberOfRequests: pool.TotalNumberOfRequests(),
+			RequestsCompleted: len(pool.Workers[i].Responses),
+		}
+	}
+}
+
+func (pool *WorkerPool) TotalNumberOfRequests() int {
+	return pool.NumberOfRequests * len(pool.Workers)
 }

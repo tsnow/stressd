@@ -51,9 +51,11 @@ func websocketHandler(sock *ws.Conn) {
 	connections[sock] = sock.RemoteAddr().String()
 
 	var plan stressPlanMsg
+	var results chan worker.StressTestResponse
 	ws.JSON.Receive(sock, &plan)
 	log.Print(plan, " received.")
 	stressPlan := plan.Data
+	stressPlan.Results = results
 	worker.NewStressPlan(stressPlan)
 	for {
 		select {
