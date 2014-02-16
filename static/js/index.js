@@ -45,7 +45,7 @@ function initFramework(){
             });
         });
     } else {
-      var connection = new WebSocket('ws://' + window.location.host + ':9899/events');
+      var connection = new WebSocket('ws://' + window.location.host.replace(':9898','') + ':9899/events');
 
       initStressPlanSubmit(function(data){
           connection.send({
