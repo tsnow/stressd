@@ -14,7 +14,7 @@ var deactivateChannel = make(chan *ws.Conn)
 var connections = make(map[*ws.Conn]string)
 
 func StartWebsocketServer() {
-	go broadcast()
+	go handleDisconnects()
 
 	http.Handle("/events", ws.Handler(websocketHandler))
 	log.Print("starting websocket server at ", config.Config.WebsocketAddress, ":", config.Config.WebsocketPort)
@@ -23,17 +23,13 @@ func StartWebsocketServer() {
 	}
 }
 
-func broadcast() {
+func handleDisconnects() {
 	for {
 		select {
-		case message := <-EventChannel:
-			go func() {
-				for c := range connections {
-					if ws.Message.Send(c, message) != nil {
-						deactivateChannel <- c
-					}
-				}
-			}()
+		case conn := <-deactivateChannel:
+			log.Print(conn.RemoteAddr(), " disconnected")
+			conn.Close()
+			delete(connections, conn)
 		}
 	}
 }
@@ -44,10 +40,5 @@ func websocketHandler(sock *ws.Conn) {
 
 	for {
 		select {
-		case conn := <-deactivateChannel:
-			log.Print(sock.RemoteAddr(), " disconnected")
-			conn.Close()
-			delete(connections, conn)
-		}
 	}
 }
