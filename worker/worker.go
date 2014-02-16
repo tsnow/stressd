@@ -61,7 +61,7 @@ func (worker *Worker) DoRequest() *Response {
 	start := time.Now()	
 	resp, err := client.Do(req)
 	defer func() { resp.Body.Close() }()
-	return NewResponse(resp.Status(), resp.Headers(), resp.Body.Read(), start)
+	return NewResponse(resp.StatusCode, "", "", start) // resp.Header, ioutil.ReadAll(resp.Body)
 }
 
 // Execute makes the HTTP request to the endpoint configured in the
