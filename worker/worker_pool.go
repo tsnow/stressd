@@ -18,6 +18,38 @@ type StressTestResponse struct {
 	NumberOfRequests int `json:"numReqs"`
 	RequestsCompleted int `json:"numCompleted"`
 }
+
+type StressTestPlan struct {
+	Url              string
+	Method           string
+	Headers          string
+	Body             string
+	NumberOfRequests int
+	NumberOfWorkers  int
+}
+
+var plans chan StressTestPlan
+
+
+
+func Listen(){
+	plans = make(chan StressTestPlan)
+	go func(){
+		for {
+			select {
+			case plan :=<- plans:
+				pool := NewWorkerPool(plan.NumberOfRequests, plan.NumberOfWorkers, plan.Url, plan.Method, plan.Headers, plan.Body)
+				pool.Stress()
+			}
+		}
+	}()
+}
+
+func NewStressPlan(plan StressTestPlan) StressTestPlan{
+	plans <- plan
+	return plan
+}
+
 // NewWorkerPool accepts the concurrency settings, as well as
 // information about the HTTP request to be made. It returns a
 // configured WorkerPool struct.

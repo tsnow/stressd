@@ -38,6 +38,7 @@ func handleDisconnects() {
 
 type stressPlanMsg struct {
 	Key string `json:"key"`
+	Data worker.StressTestPlan `json:"data"`
 }
 
 type stressResponseMsg struct {
@@ -52,6 +53,8 @@ func websocketHandler(sock *ws.Conn) {
 	var plan stressPlanMsg
 	ws.JSON.Receive(sock, &plan)
 	log.Print(plan, " received.")
+	stressPlan := plan.Data
+	worker.NewStressPlan(stressPlan)
 	for {
 		select {
 		case res :=<- results:

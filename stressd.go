@@ -6,6 +6,7 @@ import (
 	"os"
 	"stressd/config"
 	"stressd/server"
+	"stressd/worker"
 )
 
 var conf = config.New()
@@ -32,5 +33,6 @@ func main() {
 	parseArgs()
 	log.Println("stressd [ env:", conf.Environment, "- pid:", os.Getpid(), "- ver:", config.VERSION, "]")
 	go server.StartWebsocketServer()
+	go worker.Listen()
 	server.StartHTTPServer()
 }
