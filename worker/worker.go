@@ -4,6 +4,7 @@ import (
 	"sync"
 	"time"
 	"net/http"
+	"strings"
 )
 
 // Worker provides the interface for the HTTP endpoint that
@@ -56,6 +57,7 @@ func NewResponse(status int, headers, body string, start time.Time) *Response {
 
 func (worker *Worker) DoRequest() *Response {
 	client := &http.Client{}
+	req, err := http.NewRequest(worker.Method, worker.Url, strings.NewReader(worker.Body))
 	start := time.Now()	
 	resp, err := client.Do(req)
 	defer func() { resp.Body.Close() }()
