@@ -36,7 +36,7 @@ function initStressPlanSubmit(transport){
 }
 
 function initFramework(){
-    var coder = 1;
+    var coder = 0;
     if(coder){
       Coder.socketConnection.init(function(){
           Coder.socketConnection.addListener('request_complete', updateSummary);
