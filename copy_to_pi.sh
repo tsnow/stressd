@@ -1,4 +1,4 @@
 #!/bin/bash
-scp bashrc pi@coder.local:~/.bashrc
-scp install_go.sh pi@coder.local:~/
-ssh pi@coder.local '~/install_go.sh; '
+scp -R . pi@coder.local:/home/pi/stressd
+ssh pi@coder.local "/home/pi/stressd/install.sh"
+
