@@ -26,3 +26,6 @@ _testmain.go
 # Ruby example server
 example/.bundle
 example/vendor/bundle
+
+# Emacs
+*~
