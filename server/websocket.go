@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"stressd/config"
+	"stressd/worker"
 )
 
 const MAX_EVENTS_QUEUED = 32
@@ -41,6 +42,7 @@ type stressPlanMsg struct {
 
 type stressResponseMsg struct {
 	Key string `json:"key"`
+	Data worker.StressTestResponse `json:"data"`
 }
 
 func websocketHandler(sock *ws.Conn) {

@@ -13,6 +13,11 @@ type WorkerPool struct {
 	wg               sync.WaitGroup
 }
 
+
+type StressTestResponse struct {
+	NumberOfRequests int `json:"numReqs"`
+	RequestsCompleted int `json:"numCompleted"`
+}
 // NewWorkerPool accepts the concurrency settings, as well as
 // information about the HTTP request to be made. It returns a
 // configured WorkerPool struct.
