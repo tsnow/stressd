@@ -35,14 +35,13 @@ func handleDisconnects() {
 	}
 }
 
-
 type stressPlanMsg struct {
-	Key string `json:"key"`
+	Key  string                `json:"key"`
 	Data worker.StressTestPlan `json:"data"`
 }
 
 type stressResponseMsg struct {
-	Key string `json:"key"`
+	Key  string                    `json:"key"`
 	Data worker.StressTestResponse `json:"data"`
 }
 
@@ -59,15 +58,15 @@ func websocketHandler(sock *ws.Conn) {
 	worker.NewStressPlan(stressPlan)
 	for {
 		select {
-		case res :=<- results:
+		case res := <-results:
 			message := &stressResponseMsg{
-				Key: "request_complete",
+				Key:  "request_complete",
 				Data: res,
 			}
 			log.Print(res, " sent in response.")
 			if ws.Message.Send(sock, message) != nil {
 				deactivateChannel <- sock
 			}
-		}		
+		}
 	}
 }

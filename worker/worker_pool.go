@@ -13,9 +13,8 @@ type WorkerPool struct {
 	wg               sync.WaitGroup
 }
 
-
 type StressTestResponse struct {
-	NumberOfRequests int `json:"numReqs"`
+	NumberOfRequests  int `json:"numReqs"`
 	RequestsCompleted int `json:"numCompleted"`
 }
 
@@ -26,19 +25,17 @@ type StressTestPlan struct {
 	Body             string
 	NumberOfRequests int
 	NumberOfWorkers  int
-	Results chan StressTestResponse
+	Results          chan StressTestResponse
 }
 
 var plans chan StressTestPlan
 
-
-
-func Listen(){
+func Listen() {
 	plans = make(chan StressTestPlan)
-	go func(){
+	go func() {
 		for {
 			select {
-			case plan :=<- plans:
+			case plan := <-plans:
 				pool := NewWorkerPool(plan.NumberOfRequests, plan.NumberOfWorkers, plan.Url, plan.Method, plan.Headers, plan.Body)
 				pool.Stress()
 				pool.Responses(plan.Results)
@@ -47,7 +44,7 @@ func Listen(){
 	}()
 }
 
-func NewStressPlan(plan StressTestPlan) StressTestPlan{
+func NewStressPlan(plan StressTestPlan) StressTestPlan {
 	plans <- plan
 	return plan
 }
@@ -77,10 +74,10 @@ func (pool *WorkerPool) Stress() {
 	pool.wg.Wait()
 }
 
-func (pool *WorkerPool) Responses(output chan StressTestResponse){
+func (pool *WorkerPool) Responses(output chan StressTestResponse) {
 	for i := range pool.Workers {
 		output <- StressTestResponse{
-			NumberOfRequests: pool.TotalNumberOfRequests(),
+			NumberOfRequests:  pool.TotalNumberOfRequests(),
 			RequestsCompleted: len(pool.Workers[i].Responses),
 		}
 	}
