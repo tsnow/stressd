@@ -14,18 +14,17 @@ StressPlan.prototype = {
         }
 };
 
-$(document).ready( function() {
-    Coder.socketConnection.init(function(){
-        Coder.socketConnection.addListener('request_complete', function(summary){
+function updateSummary(summary){
             var status = 'Completed ' + summary.numCompleted + ' of ' + summary.numReqs + ' requests';
             $('#status').html(status);
-        });
-        
+}
+
+function initStressPlanSubmit(transport){
         $('#stress-plan').submit(function(event) {
             event.preventDefault();
             var stressPlan = new StressPlan($(this));
             stressPlan.parseForm();
-            Coder.socketConnection.sendData( 'plan', {
+            transport({
                 num_requests: stressPlan.num_requests, 
                 num_workers: stressPlan.num_workers,
                 http_method: stressPlan.http_method,
@@ -33,6 +32,17 @@ $(document).ready( function() {
                 url: stressPlan.url,
                 request_body: stressPlan.request_body
             });
+}
+
+function initFramework(){
+      Coder.socketConnection.init(function(){
+          Coder.socketConnection.addListener('request_complete', updateSummary);
+          initStressPlanSubmit(function(data){
+              Coder.socketConnection.sendData( 'plan', data);
+            });
         });
-    });
+}
+
+$(document).ready( function() {
+    initFramework();
 });
