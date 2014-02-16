@@ -60,6 +60,10 @@ func (worker *Worker) DoRequest() *Response {
 	req, err := http.NewRequest(worker.Method, worker.Url, strings.NewReader(worker.Body))
 	start := time.Now()	
 	resp, err := client.Do(req)
+	if err != nil {
+		//log.Fatal(err)
+	}
+
 	defer func() { resp.Body.Close() }()
 	return NewResponse(resp.StatusCode, "", "", start) // resp.Header, ioutil.ReadAll(resp.Body)
 }
