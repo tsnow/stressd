@@ -68,7 +68,7 @@ func (worker *Worker) DoRequest() *Response {
 // Worker. It will create a Response via NewResponse and will decrement
 // the WorkerPool's waitGroup count.
 func (worker *Worker) Execute() {
-	for i := 0; i < worker.NumberOfRequestss; i++ {
+	for i := 0; i < worker.NumberOfRequests; i++ {
 		worker.Responses[i] = worker.DoRequest()
 	}
 	worker.wg.Done()
