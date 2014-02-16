@@ -35,12 +35,16 @@ function initStressPlanSubmit(transport){
 }
 
 function initFramework(){
+    var coder = 1;
+    if(coder){
       Coder.socketConnection.init(function(){
           Coder.socketConnection.addListener('request_complete', updateSummary);
           initStressPlanSubmit(function(data){
               Coder.socketConnection.sendData( 'plan', data);
             });
         });
+    } else {
+    }
 }
 
 $(document).ready( function() {
