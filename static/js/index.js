@@ -32,6 +32,7 @@ function initStressPlanSubmit(transport){
                 url: stressPlan.url,
                 request_body: stressPlan.request_body
             });
+	});
 }
 
 function initFramework(){
