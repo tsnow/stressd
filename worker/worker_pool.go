@@ -13,6 +13,42 @@ type WorkerPool struct {
 	wg               sync.WaitGroup
 }
 
+type StressTestResponse struct {
+	NumberOfRequests  int `json:"numReqs"`
+	RequestsCompleted int `json:"numCompleted"`
+}
+
+type StressTestPlan struct {
+	Url              string
+	Method           string
+	Headers          string
+	Body             string
+	NumberOfRequests int
+	NumberOfWorkers  int
+	Results          chan StressTestResponse
+}
+
+var plans chan StressTestPlan
+
+func Listen() {
+	plans = make(chan StressTestPlan)
+	go func() {
+		for {
+			select {
+			case plan := <-plans:
+				pool := NewWorkerPool(plan.NumberOfRequests, plan.NumberOfWorkers, plan.Url, plan.Method, plan.Headers, plan.Body)
+				pool.Stress()
+				pool.Responses(plan.Results)
+			}
+		}
+	}()
+}
+
+func NewStressPlan(plan StressTestPlan) StressTestPlan {
+	plans <- plan
+	return plan
+}
+
 // NewWorkerPool accepts the concurrency settings, as well as
 // information about the HTTP request to be made. It returns a
 // configured WorkerPool struct.
@@ -36,4 +72,17 @@ func (pool *WorkerPool) Stress() {
 		go pool.Workers[i].Execute()
 	}
 	pool.wg.Wait()
+}
+
+func (pool *WorkerPool) Responses(output chan StressTestResponse) {
+	for i := range pool.Workers {
+		output <- StressTestResponse{
+			NumberOfRequests:  pool.TotalNumberOfRequests(),
+			RequestsCompleted: len(pool.Workers[i].Responses),
+		}
+	}
+}
+
+func (pool *WorkerPool) TotalNumberOfRequests() int {
+	return pool.NumberOfRequests * len(pool.Workers)
 }

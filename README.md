@@ -3,14 +3,16 @@
 
 ![http://71.19.156.55/images/stressd.png](http://71.19.156.55/images/stressd.png)
 
-### Getting Started: Docker & Fig Configuration
+## Go stressd service
+
+### Local Development: Docker & Fig Configuration
 
 Install `fig` as described here: http://orchardup.github.io/fig/install.html
 
 Then run `fig up` in the current directory. The Stressd UI will be available at http://localdocker:9898/. See fig.yml and Dockerfile for more info.
 
 
-### Getting Started: Neckbeard Configuration
+### Local Development: Neckbeard Configuration
 
 First, you'll need Go. Once you have that hotness, clone this and run `go get` from inside the project folder (if you haven't set up a Go workspace yet, go read the docs. It's important.)
 
