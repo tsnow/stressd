@@ -25,8 +25,8 @@ type Response struct {
 	Status  int
 	Headers string
 	Body    string
-	Start 	Time
-	End 	Time
+	Start 	time.Time
+	End 	time.Time
 }
 
 // NewWorker accepts information about the HTTP endpoint to test
@@ -44,7 +44,7 @@ func NewWorker(numberOfRequests int, url, method, headers, body string, wg *sync
 
 // NewResponse accepts information about the result of the HTTP request
 // that was made and returns a configured Response.
-func NewResponse(status int, headers, body string, start Time) *Response {
+func NewResponse(status int, headers, body string, start time.Time) *Response {
 	return &Response{
 		Status:  status,
 		Headers: headers,
