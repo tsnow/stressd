@@ -1,28 +1,27 @@
 #!/bin/sh
 ### BEGIN INIT INFO
-# Provides:          coder-daemon
+# Provides:          stressd-daemon
 # Required-Start:    $local_fs $remote_fs
 # Required-Stop:     $local_fs $remote_fs
 # Should-Start:      
 # Should-Stop:       
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
-# Short-Description: Small web server on 80 and 443 for Coder gui.
+# Short-Description: Small webservice server on 9898 for UI and 9899 for websocket
 # Description:       Starts as user specified in 
-#                    /etc/default/coder-daemon.
-#                    Currently requires root to run on 80/443.
+#                    /etc/default/stressd-daemon.
 ### END INIT INFO
 
 
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-DESC="Coder Server"
-NAME="coder-daemon"
-DAEMON=/opt/node/bin/node
-DAEMON_ARGS="/home/coder/coder-dist/coder-base/server.js"
-DAEMON_PATH="/home/coder/coder-dist/coder-base/"
+DESC="Stressd Server"
+NAME="stressd-daemon"
+DAEMON=/home/pi/goroot/bin/stressd
+DAEMON_ARGS=""
+DAEMON_PATH="/home/pi/"
 PIDFILE=/var/run/$NAME.pid
-UMASK=022                     # Change this to 0 if running deluged as its own user
-PKGNAME=coder-daemon
+UMASK=0                     # Change this to 0 if running deluged as its own user
+PKGNAME=stressd-daemon
 SCRIPTNAME=/etc/init.d/$PKGNAME
 
 # Exit if the package is not installed
