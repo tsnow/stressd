@@ -48,10 +48,10 @@ function initFramework(){
       var connection = new WebSocket('ws://' + window.location.host.replace(':9898','') + ':9899/events');
 
       initStressPlanSubmit(function(data){
-          connection.send({
+          connection.send(JSON.stringify({
             key: 'plan',
             data: data
-          });
+          }));
       });
       // When the connection is open, send some data to the server
       connection.onopen = function () {
@@ -66,8 +66,9 @@ function initFramework(){
       // Log messages from the server
       connection.onmessage = function (e) {
         console.log('Server: ' + e.data);
-        if(e.data.key != undefined && e.data.key == 'request_complete'){
-          updateSummary(e.data.data);
+        var data = JSON.parse(e.data);
+        if(data.key != undefined && data.key == 'request_complete'){
+          updateSummary(data.data);
         }
       };
     }
