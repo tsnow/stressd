@@ -54,13 +54,19 @@ func NewResponse(status int, headers, body string, start Time) *Response {
 	}
 }
 
+function (worker *Worker) withTiming(responder func) *Response {
+	start := time.Now()
+	resp, err := responder()
+	defer resp.Body.Close()
+	return NewResponse(resp.Status(), resp.Headers(), resp.Body.Read(), start)
+}
+
 function (worker *Worker) DoRequest() *Response {
     client := &http.Client{}
     req, err := http.NewRequest(worker.Method, worker.Url, worker.Body)
-    start := time.Now()
-    resp, err := client.Do(req)
-    defer resp.Body.Close()
-    return NewResponse(resp.Status(), resp.Headers(), resp.Body.Read(), start)
+    return worker.withTiming(func(){
+	    return client.Do(req)
+    })
 }
 
 // Execute makes the HTTP request to the endpoint configured in the
