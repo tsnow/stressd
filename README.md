@@ -3,7 +3,9 @@
 
 ![http://71.19.156.55/images/stressd.png](http://71.19.156.55/images/stressd.png)
 
-### Getting Started
+## Go stressd service
+
+### Local Development
 
 First, you'll need Go. Once you have that hotness, clone this and run `go get` from inside the project folder (if you haven't set up a Go workspace yet, go read the docs. It's important.)
 
