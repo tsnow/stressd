@@ -1,0 +1,7 @@
+web:
+  build: .
+  command: go run stressd.go
+  ports:
+   - 9898:9898
+   - 9899:9899
+
