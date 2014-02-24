@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head> 
+    <title>Stressd | Home</title>
+    <meta charset="utf-8">
+    <!-- Base UI Includes -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,600,300' rel='stylesheet' type='text/css'>
+    <!-- / Base UI Includes -->
+    
+    <!-- Standard Coder Includes -->
+    <link href="/static/apps/coderlib/css/index.css" media="screen" rel="stylesheet" type="text/css"/>
+    <!-- End Coder Includes -->
+
+    <!-- This app's includes -->
+    <link href="{{&static_url}}/css/index.css" media="screen" rel="stylesheet" type="text/css"/>
+    <!-- End apps includes -->
+</head>
+<body class="">
+    <div id="wrap">
+      <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="/"><strong>stressd</strong></a>
+          </div>
+        </div>
+      </div>
+      <div class="container pagecontent">
+      <div class="row">
+    <div class="col-md-2">
+      <img id="logo" src="/static/apps/stressd/media/stress.jpg" alt="stressd" title="stressd" />
+    </div>
+    <div class="col-md-10 pretty-type">
+      <h1><strong>stressd</strong></h1>
+      <hr/>
+      <p>Fill out the form below to STRESS ALL THE THINGS.</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-10 col-md-offset-2">
+      <form role="form" id="stress-plan">
+        <div class="form-group">
+          <label for="url">URL</label>
+          <input class="form-control" id="url" name="url" placeholder="Enter the URL you'd like to stress out like whoa">
+        </div>
+        <div class="form-group">
+          <label for="num_requests">Number of Times to Make This Request</label>
+          <input class="form-control" id="num_requests" name="num_requests" placeholder="We'll generate this many requests for each worker">
+        </div>
+        <div class="form-group">
+          <label for="num_workers">Number of Concurrent Users to Simulate</label>
+          <input class="form-control" id="num_workers" name="num_workers" placeholder="We'll generate this many workers to nag your URL">
+        </div>
+        <div class="form-group">
+          <label for="http_method">HTTP Method</label>
+          <input class="form-control" id="http_method" name="http_method" placeholder="Set your HTTP method (GET, PUT, OPTIONS, etc.) here">
+        </div>
+        <div class="form-group">
+          <label for="http_headers">HTTP Headers</label>
+          <textarea class="form-control" id="http_headers" name="http_headers" placeholder="Add any HTTP headers you'd like to set here, one per line"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="request_body">Request Body</label>
+          <textarea class="form-control" id="request_body" name="request_body" placeholder="If you want to submit a payload, enter it here"></textarea>
+        </div>
+        <button type="submit" class="btn btn-default">Unleash the Hounds</button>
+      </form>
+      <div id="status"></div>
+    </div>
+  </div>
+
+      </div>
+    </div>
+    <div id="footer">
+      <div class="container">
+        <p class="text-muted"></p>
+      </div>
+    </div>
+    
+    
+    <!-- Base includes -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <!-- / Base includes -->
+    
+    <!-- Coder Includes -->
+    <script>
+        var appname = "{{app_name}}"; //app name (id) of this app
+        var appurl = "{{&app_url}}";
+        var staticurl = "{{&static_url}}"; //base path to your static files /static/apps/yourapp
+    </script>
+    <!-- <script src="/static/common/js/jquery.min.js"></script>-->
+    <script src="/static/common/ace-min/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static/apps/coderlib/js/index.js"></script>
+    <script>
+        Coder.addBasicNav();
+    </script>
+    <!--  / Coder Includes -->
+    
+    <!-- App Includes -->
+    <script src="{{&static_url}}/js/index.js"></script>
+    <!-- / App Includes -->
+</body>
+</html>

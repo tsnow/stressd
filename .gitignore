@@ -22,3 +22,10 @@ _testmain.go
 *.exe
 
 *.pem
+
+# Ruby example server
+example/.bundle
+example/vendor/bundle
+
+# Emacs
+*~
