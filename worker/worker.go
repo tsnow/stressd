@@ -58,6 +58,9 @@ func NewResponse(status int, headers, body string, start time.Time) *Response {
 func (worker *Worker) DoRequest() *Response {
 	client := &http.Client{}
 	req, err := http.NewRequest(worker.Method, worker.Url, strings.NewReader(worker.Body))
+	if err != nil {
+		//log.Fatal(err)
+	}
 	start := time.Now()	
 	resp, err := client.Do(req)
 	if err != nil {
