@@ -1,0 +1,1 @@
+/Users/tsnow/go/src/stressd/server/scripts/application.js
